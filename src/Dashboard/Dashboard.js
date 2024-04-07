@@ -4,10 +4,10 @@ import NavBar from "./Components/NavBar";
 import FileTable from "./Components/FileTable";
 import useAuthentication from "../Auth/UseAuthentication";
 
-function Dashboard() {
+   function Dashboard() {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false); // Add loading state
-  useAuthentication();
+   useAuthentication();
   const fetchData = async () => {
     try {
       setLoading(true); // Set loading to true when fetching data
