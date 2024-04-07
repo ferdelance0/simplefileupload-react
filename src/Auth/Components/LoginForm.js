@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm({ switchForm }) {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -15,7 +15,8 @@ function LoginForm({ switchForm }) {
       if (response.data.status === "success") {
         localStorage.setItem('uid', response.data.uid);
         localStorage.setItem('email', response.data.email);
-        history.push('/dashboard');
+        console.log(localStorage.getItem('uid'));
+        navigate('/dashboard');
       } else {
         setError(response.data.status);
       }

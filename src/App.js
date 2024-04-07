@@ -1,19 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'animate.css/animate.min.css';
 import LoginAndSignup from './Auth/LoginAndSignUp';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './Dashboard/Dashboard';
-
+import FileUpload from './Dashboard/FileUpload';
 function App() {
+  
   return (
     <>
     <Router>
       <div className="App">
-        <Switch>
-          <Route exact path="/" component={LoginAndSignup} />
-          <Route path="/dashboard" component={Dashboard} />
-          {/* Add more routes for other pages */}
-        </Switch>
+        <Routes>
+          <Route index element={<LoginAndSignup/>} />
+          <Route path="/dashboard" element={ <Dashboard />} />
+          <Route path="/upload" element={ <FileUpload />} />
+        </Routes>
       </div>
     </Router>
     </>

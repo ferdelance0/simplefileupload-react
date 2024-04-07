@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import LoginForm from './LoginForm';
-import SignUpForm from './SignUpForm';
+import LoginForm from './Components/LoginForm';
+import SignUpForm from './Components/SignUpForm';
 function LoginAndSignup() {
   const [activeForm, setActiveForm] = useState('loginForm');
-
   const switchForm = (formId) => {
     setActiveForm(formId);
   };
