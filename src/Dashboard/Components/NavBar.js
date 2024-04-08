@@ -23,11 +23,10 @@ function NavBar() {
         setLoading(true);
         const confirmed = window.confirm("Are you sure you want to truncate this table?");
         if (!confirmed) {
+            setLoading(false);
             return;
         }
-        else{
-            setLoading(false);
-        }
+    
         const response = await axios.post(`https://simplefileupload-node.onrender.com/truncate`, {
             params: {
                 uid: localStorage.getItem("uid"),
