@@ -33,6 +33,7 @@ function NavBar() {
             }
         })
         if (response.data.status === "success") {
+            navigate('/dashboard')
             window.location.reload();
         }
         else {
