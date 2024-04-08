@@ -1,15 +1,18 @@
 import React from "react";
+import { useState } from "react";
 import axios from "axios";
 function FileTable({ files }) {
+  const [loading, setLoading] = useState(false);
   const handleDelete = async (fileId) => {
+    setLoading(true);
     try {
       const confirmed = window.confirm("Are you sure you want to delete this file?");
       if (!confirmed) {
+        setLoading(false);
         return;
       }
-
       console.log(localStorage.getItem("uid"), fileId);
-      const response = await axios.post(`http://localhost:3000/delete`, {
+      const response = await axios.post(`https://simplefileupload-node.onrender.com/delete`, {
         params: {
           uid: localStorage.getItem("uid"),
           fileId: fileId
@@ -22,7 +25,10 @@ function FileTable({ files }) {
       else {
       }
     } catch (error) {
+      setLoading(false);
       console.error('Error deleting file:', error);
+    } finally {
+      setLoading(false);
     }
   }
   return (
@@ -50,7 +56,10 @@ function FileTable({ files }) {
                 <td>
                   <a>
 
-                    <button className="btn btn-danger" type="button" onClick={() => handleDelete(file.id)}><i className="bi bi-x-lg"></i></button>
+                    <button className="btn btn-danger" type="button" onClick={() => handleDelete(file.id)}>
+                    {loading ?<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                     : <i className="bi bi-x-lg"></i>}
+                    </button>
                   </a>
                 </td>
               </tr>

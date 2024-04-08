@@ -7,11 +7,12 @@ function LoginForm({ switchForm }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/login", { email, password });
+      setLoading(true); 
+      const response = await axios.post("https://simplefileupload-node.onrender.com/login", { email, password });
       if (response.data.status === "success") {
         localStorage.setItem('uid', response.data.uid);
         localStorage.setItem('email', response.data.email);
@@ -23,6 +24,8 @@ function LoginForm({ switchForm }) {
     } catch (error) {
       console.error("Login failed:", error);
       setError('Login failed. Please try again.');
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -40,7 +43,8 @@ function LoginForm({ switchForm }) {
             <input type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           <div className="form-group mb-3 text-center">
-            <button type="submit" className="btn btn-primary btn-block">Login</button>
+            <button type="submit" className="btn btn-primary btn-block">{loading ?
+            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>: 'Login'}</button>
           </div>
           <div className="text-center">
             <p className="mb-0">Don't have an account? <button type="button" className="btn btn-link" onClick={() => switchForm('signupForm')}>Sign up</button></p>

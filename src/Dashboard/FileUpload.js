@@ -15,7 +15,7 @@ function FileUpload() {
     formData.append("filename", e.target.customFile.files[0]);
     formData.append("uid", localStorage.getItem("uid")); 
     try {
-      const response = await axios.post("http://localhost:3000/store", formData);
+      const response = await axios.post("https://simplefileupload-node.onrender.com/store", formData);
 
       if (response.data.status === "success") {
         navigate("/dashboard");

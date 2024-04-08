@@ -7,7 +7,7 @@ function NavBar() {
     const handleLogout = async () => {
         localStorage.removeItem('uid');
         localStorage.removeItem('email');
-        const response = await axios.get("http://localhost:3000/logout")
+        const response = await axios.get("https://simplefileupload-node.onrender.com/logout")
         if (response.data.status === "success") {
             console.log(localStorage.getItem('uid'));
             console.log("Logout success")
@@ -25,7 +25,7 @@ function NavBar() {
         if (!confirmed) {
             return;
         }
-        const response = await axios.post(`http://localhost:3000/truncate`, {
+        const response = await axios.post(`https://simplefileupload-node.onrender.com/truncate`, {
             params: {
                 uid: localStorage.getItem("uid"),
             }

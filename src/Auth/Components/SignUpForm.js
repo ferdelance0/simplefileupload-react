@@ -5,19 +5,24 @@ function SignUpForm({ switchForm }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
+    setLoading(true); 
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/signup", { email, password });
+      const response = await axios.post("https://simplefileupload-node.onrender.com/signup", { email, password });
       if (response.data.status === "success") {
         switchForm('loginForm');
       } else {
+        setLoading(false); 
         setError(response.data.status);
       }
     } catch (error) {
       console.error("Signup failed:", error);
       setError('Signup failed. Please try again.');
+    }finally{
+      setLoading(false); 
     }
   };
 
@@ -35,8 +40,8 @@ function SignUpForm({ switchForm }) {
             <input type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           <div className="form-group mb-3 text-center">
-            <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
-          </div>
+          <button type="submit" className="btn btn-primary btn-block">{loading ?
+            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>: 'Signup'}</button>          </div>
           <div className="text-center">
             <p className="mb-0">Already have an account? <button type="button" className="btn btn-link" onClick={() => switchForm('loginForm')}>Login</button></p>
           </div>

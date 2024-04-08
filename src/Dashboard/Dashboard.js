@@ -13,7 +13,7 @@ import useAuthentication from "../Auth/UseAuthentication";
       setLoading(true); // Set loading to true when fetching data
       const uid = localStorage.getItem("uid");
       const email = localStorage.getItem("email");
-      const response = await axios.get("http://localhost:3000/dashboard", {
+      const response = await axios.get("https://simplefileupload-node.onrender.com/dashboard", {
         params: {
           uid,
           email,
