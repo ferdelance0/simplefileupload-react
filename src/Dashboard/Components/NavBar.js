@@ -25,6 +25,9 @@ function NavBar() {
         if (!confirmed) {
             return;
         }
+        else{
+            setLoading(false);
+        }
         const response = await axios.post(`https://simplefileupload-node.onrender.com/truncate`, {
             params: {
                 uid: localStorage.getItem("uid"),
