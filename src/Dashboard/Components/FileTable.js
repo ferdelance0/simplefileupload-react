@@ -2,13 +2,13 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 function FileTable({ files }) {
-  const [loading, setLoading] = useState(false);
+  const [loadingMap, setLoadingMap] = useState({}); 
   const handleDelete = async (fileId) => {
-    setLoading(true);
+    setLoadingMap(prevMap => ({ ...prevMap, [fileId]: true }));
     try {
       const confirmed = window.confirm("Are you sure you want to delete this file?");
       if (!confirmed) {
-        setLoading(false);
+        setLoadingMap(prevMap => ({ ...prevMap, [fileId]: false }));
         return;
       }
       console.log(localStorage.getItem("uid"), fileId);
@@ -25,10 +25,10 @@ function FileTable({ files }) {
       else {
       }
     } catch (error) {
-      setLoading(false);
+      setLoadingMap(prevMap => ({ ...prevMap, [fileId]: false }));
       console.error('Error deleting file:', error);
     } finally {
-      setLoading(false);
+      setLoadingMap(prevMap => ({ ...prevMap, [fileId]: false }));
     }
   }
   return (
@@ -57,7 +57,7 @@ function FileTable({ files }) {
                   <a>
 
                     <button className="btn btn-danger" type="button" onClick={() => handleDelete(file.id)}>
-                    {loading ?<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    {loadingMap[file.id]  ?<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                      : <i className="bi bi-x-lg"></i>}
                     </button>
                   </a>
